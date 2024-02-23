@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>JSON Format</title>
+        
+    </head>
+    <body>
+        <textarea id="source"></textarea>
+        <button id="format" >格式化</button>
+        <textarea readonly id="dest"></textarea>
+    </body>
+</html>
+<script type="text/javascript">
+    document.getElementById('format').onclick = function() {
+        var source = document.getElementById('source').value;
+        var dest = document.getElementById('dest');
+        
+        // 请求后台格式化
+        debugger;
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/fmtjson/format', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                dest.value = xhr.responseText;
+            }
+        }
+
+        xhr.send(JSON.stringify({"jsonStr": source}));
+    }
+</script>
